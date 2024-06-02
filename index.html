@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA 6 Geri Sayım</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&display=swap">
+</head>
+<body>
+    <div class="background day" id="background"></div>
+    <div class="countdown">
+        <p id="timer">GTA 6 çıkışına kalan süre / Time until GTA 6 release:</p>
+        <div id="countdown"></div>
+    </div>
+    <div class="theme-switch" id="themeSwitch">
+        <img src="sunicon.png" alt="Day Mode" id="themeIcon">
+    </div>
+
+    <script>
+        // Hedef tarih: 21 Eylül 2025
+        var countDownDate = new Date("Sep 21, 2025 00:00:00").getTime();
+
+        // Her saniye güncellenen fonksiyon
+        var x = setInterval(function() {
+            // Şu anki zaman
+            var now = new Date().getTime();
+            // Fark
+            var distance = countDownDate - now;
+            // Zaman hesaplama
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Sonucu elemente yaz
+            document.getElementById("countdown").innerHTML = 
+                `<div class="time"><span>${days}</span>gün / days</div> 
+                <div class="time"><span>${hours}</span>saat / hours</div> 
+                <div class="time"><span>${minutes}</span>dakika / minutes</div> 
+                <div class="time"><span>${seconds}</span>saniye / seconds</div>`;
+            // Süre bittiğinde
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "ÇIKTI! / RELEASED!";
+            }
+        }, 1000);
+
+        // Tema değiştirme
+        document.getElementById('themeSwitch').addEventListener('click', function() {
+            var background = document.getElementById('background');
+            var themeIcon = document.getElementById('themeIcon');
+            if (background.classList.contains('day')) {
+                background.classList.remove('day');
+                background.classList.add('night');
+                themeIcon.src = 'moon.png'; // Gece modu ikonu
+                themeIcon.alt = 'Night Mode';
+            } else {
+                background.classList.remove('night');
+                background.classList.add('day');
+                themeIcon.src = 'sunicon.png'; // Gündüz modu ikonu
+                themeIcon.alt = 'Day Mode';
+            }
+        });
+    </script>
+</body>
+</html>
